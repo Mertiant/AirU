@@ -71,15 +71,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'datascihack.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# Database
+# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES = {'default' : {}}
+DATABASES['default'] =  dj_database_url.config()
+
+# Enable Persistent Connections
+DATABASES['default']['CONN_MAX_AGE'] = 500
+
+
 
 
 # Password validation
@@ -114,6 +118,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Django Heroku settings -- make sure it's at the end of file
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Static asset configuration
 STATIC_ROOT = 'staticfiles'
