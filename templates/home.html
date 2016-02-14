@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+<style>
+    {% block style %}
+    html, body { height: 100%; margin: 0; padding: 0; }
+    #map { height: 100%; }
+    {% endblock %}
+</style>
+
+{% block content %}
+    <div id="map"></div>
+    <script type="text/javascript">
+
+    lat_data = {{ lat_data }};
+    lng_data = {{ lng_data }};
+
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: lat_data, lng: lng_data},
+        zoom: 8
+      });
+    }
+
+    </script>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGNKqFKcscw63Zt5VKyNpdVEpJQbyzxHE&amp;callback=initMap">
+    </script>
+{% endblock %}
+
+{% block script %}
+    <!-- Script to Activate the Carousel -->
+    <script>
+    </script>
+{% endblock script %}
