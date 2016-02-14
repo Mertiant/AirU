@@ -240,12 +240,111 @@
 </div>
 
     <script>
+function testtest(e) {
+    // read the value from the slider:
+    var value = document.getElementById("price").value;
+    // now compare:
+    alert("First");
+}
+
+
+// ------------------------------------
+    var map = '';
+    var ubers=[{'duration': 0,
+ 'id': 9062929,
+ 'latitude': 40.80684473842182,
+ 'longitude': -73.96307061354132,
+ 'name': 'Studio next to Columbia University',
+ 'price': 150,
+ 'summary': 'Lovely studio with a pull-out futon and queen size bed. It is perfect for 2 people but in case you are group of 3 or 4  futon can be set up as a bed.',
+ 'uber': 14},
+{'duration': 720,
+ 'id': 9172361,
+ 'latitude': 40.7712163877805,
+ 'longitude': -73.9572589507285,
+ 'name': '1 BR Upper East Side Apartment',
+ 'price': 150,
+ 'summary': "I'm renting my apartment while out of town. It's a comfortable space close to the 4/5/6 subway lines, Central Park, the Met and many wonderful restaurants. I've lived in this building for almost 20 years and it's the quietest apartment in Manhattan!",
+ 'uber': 42},
+{'duration': 2340,
+ 'id': 5615949,
+ 'latitude': 40.695936724047996,
+ 'longitude': -73.97241455265912,
+ 'name': 'Cozy Contemporary 1BD, Fort Greene',
+ 'price': 145,
+ 'summary': 'Please enjoy the use of my full apartment.   While I am away traveling apartment has central AC/heat is great for couples or a single person traveling to New York or working short term in the Navy Yards or Sterling Studios.',
+ 'uber': 68},
+{'duration': 2640,
+ 'id': 3064153,
+ 'latitude': 40.68421754330589,
+ 'longitude': -73.97540256813599,
+ 'name': 'Light Filled Apt. Near Every Subway',
+ 'price': 160,
+ 'summary': 'This light filled 2 room studio is comfortable and convenient. Located in Ft. Greene this apt is a couple of blocks away from the Barclays Center and steps from the A/C/G/B/D/N/Q/R/2/3/4/5 subways and LIRR-Airtrain. Manhattan is only 10 min. away.',
+ 'uber': 62},
+{'duration': 600,
+ 'id': 9883870,
+ 'latitude': 40.78305746431905,
+ 'longitude': -73.94580528992147,
+ 'name': 'Room in Apt Near Central Park UES',
+ 'price': 115,
+ 'summary': 'This is for a room in a 2 bedroom apartment.  The other room will be occupied.  The apartment offers many amenities such as High Speed Internet, Washer/Dryer, and a full kitchen.  Less than a 10 minute walk to the Subway, easy access to Central Park.',
+ 'uber': 34}];
+
 function likeit() {
   $('#likeitplaceholder').append('<li><a href="#"><span>Montage Hotel</span></a></li>');
   $('#likeitplaceholder').append('<li><a href="#"><span>Dream</span></a></li>');
   $('#likeitplaceholder').append('<li><a href="#"><span>Sleep House</span></a></li>');
   $('#likeitplaceholder').append('<li><a href="#"><span>Martins</span></a></li>');
   console.log("clicked");
+  //
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 40.8688, lng: -73.2195},
+    zoom: 12
+    });
+    var uber_info = new google.maps.InfoWindow(), uber_marker, i;
+    
+    // Loop through our array of markers & place each one on the map  
+    for( i = 0; i < ubers.length; i++ ) {
+        var price_info = new google.maps.InfoWindow();
+        var position = new google.maps.LatLng(ubers[i].latitude, ubers[i].longitude);
+        //bounds.extend(position);
+        uber_marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: ubers[i].name
+        });
+        
+        // Allow each marker to have an info window    
+        google.maps.event.addListener(uber_marker, 'click', (function(uber_marker, i) {
+            return function() {
+                //hotel_info.setContent(infoWindowContent[i][0]);
+                //hotel_info.open(map, hotel_marker);
+            $("#pop-up").fadeOut(100,function () {
+            // Popup content
+            $("#pop-up-title").html(ubers[i].name);
+            $("#pop-img").html(ubers[i].summary);
+            //console.log(hotel_markers[i][0]);
+            //$("#pop-desc").html("K");
+
+            // Popup position
+            // var popLeft = (d.x*scale)+trans[0]+20;//lE.cL[0] + 20;
+            // var popTop = (d.y*scale)+trans[1]+20;//lE.cL[1] + 70;
+            $("#pop-up").css({"left":20,"bottom":20});
+            $("#pop-up").fadeIn(100);
+            })
+          }
+        })(uber_marker, i));
+
+        // Automatically center the map fitting all markers on the screen
+        //map.fitBounds(bounds);
+        price_info.setContent('Uber: $' + ubers[i].uber + '</br>Housing: $' + ubers[i].price + '');
+        price_info.open(map, uber_marker);
+    }
+
+
+
+
 }
 
 function getobj1(){
@@ -266,15 +365,23 @@ function getobj1(){
 
 function outputUpdate_time(vol) {
   document.querySelector('#time_vol').value = vol;
+    var value = document.getElementById("time").value;
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -33.8688, lng: 151.2195},
+    zoom: 14
+  });
 }
 function outputUpdate_price(vol) {
   document.querySelector('#price_vol').value = vol;
+      var value = document.getElementById("price").value;
+    // now compare:
+    console.log(value);
 }
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -33.8688, lng: 151.2195},
     zoom: 13
   });
@@ -466,7 +573,7 @@ function initMap() {
 
         // Automatically center the map fitting all markers on the screen
         //map.fitBounds(bounds);
-        price_info.setContent(hotels[i].price);
+        price_info.setContent('Housing:$' + hotels[i].price);
         price_info.open(map, hotel_marker);
     }
 
