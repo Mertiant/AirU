@@ -241,11 +241,7 @@
 </div>
 
     <script>
-function getMapLocation(){
-  hotel_marker(){
 
-  }
-}
 function outputUpdate_time(vol) {
   document.querySelector('#time_vol').value = vol;
 }
@@ -257,7 +253,7 @@ function outputUpdate_price(vol) {
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: "latitude", lng: "longitude"},
+    center: {lat: -33.8688, lng: 151.2195},
     zoom: 13
   });
   var input = /** @type {!HTMLInputElement} */(
@@ -309,7 +305,7 @@ function initMap() {
       address = [
         (place.address_components[0] && place.address_components[0].short_name || ''),
         (place.address_components[1] && place.address_components[1].short_name || ''),
-        (place.address_components[2] && place.address_components[2].short_name || '')7
+        (place.address_components[2] && place.address_components[2].short_name || '')
       ].join(' ');
     }
 
