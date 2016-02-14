@@ -33,7 +33,7 @@
     display: none;
     position:absolute;
     color: white;
-    font-size: 14px;
+    font-size: 17px;
     background: rgba(0,0,0,0.5);
     padding: 5px 10px 5px 10px;
     -moz-border-radius: 8px 8px;
@@ -42,19 +42,19 @@
     width: 60%;
   }
   div#pop-up-title {
-    font-size: 12px;
+    font-size: 15px;
     width:200px;
     margin-bottom: 4px;
     font-weight: bolder;
   }
   div#pop-up-content {
-    font-size: 10px;
+    font-size: 13px;
   }
   div#pop-desc {
     width: 100px;
   }
   div#pop-img {
-    font-size: 10px;
+    font-size: 13px;
     font-weight: bolder;
   }
 
@@ -217,7 +217,7 @@
     <input type="range" min="0" max="1000" value="500" id="price" step="1" oninput="outputUpdate_price(value)">
     <output for="price" id="price_vol">300</output></a></li>
          <li class='last'><a href='#'><label for="time">Time</label>
-    <input type="range" min="0" max="30" value="10" id="time" step="1" oninput="outputUpdate_time(value)">
+    <input type="range" min="0" max="30" value="15" id="time" step="1" oninput="outputUpdate_time(value)">
     <output for="time" id="time_vol">10</output></a></li>
       </ul>
    </li>
@@ -292,16 +292,14 @@ function testtest(e) {
  'uber': 34}];
 
 function likeit() {
-  $('#likeitplaceholder').append('<li><a href="#"><span>Montage Hotel</span></a></li>');
-  $('#likeitplaceholder').append('<li><a href="#"><span>Dream</span></a></li>');
-  $('#likeitplaceholder').append('<li><a href="#"><span>Sleep House</span></a></li>');
-  $('#likeitplaceholder').append('<li><a href="#"><span>Martins</span></a></li>');
+  $('#likeitplaceholder').append('<li><a href="#"><span>Studio next to Columbia University</span></a></li>');
+  $('#likeitplaceholder').append('<li><a href="#"><span>1 BR Upper East Side Apartment</span></a></li>');
+  $('#likeitplaceholder').append('<li><a href="#"><span>Light Filled Apt. Near Every Subway</span></a></li>');
+  $('#likeitplaceholder').append('<li><a href="#"><span>Room in Apt Near Central Park UES</span></a></li>');
+  $('#likeitplaceholder').append('<li><a href="#"><span>Cozy Contemporary 1BD, Fort Greene</span></a></li>');
   console.log("clicked");
   //
-    map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.8688, lng: -73.2195},
-    zoom: 12
-    });
+    map.setZoom(12);
     var uber_info = new google.maps.InfoWindow(), uber_marker, i;
     
     // Loop through our array of markers & place each one on the map  
@@ -366,10 +364,7 @@ function getobj1(){
 function outputUpdate_time(vol) {
   document.querySelector('#time_vol').value = vol;
     var value = document.getElementById("time").value;
-    map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -33.8688, lng: 151.2195},
-    zoom: 14
-  });
+    map.setZoom(19-0.2*value)
 }
 function outputUpdate_price(vol) {
   document.querySelector('#price_vol').value = vol;
